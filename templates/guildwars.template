@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# Set our wineprefix to point to one just for skype.
+export WINEPREFIX=/home/docker/wine/GuildWars
+export WINEARCH='win64'
+
+# Check if the user has skype installed and if they do not then set it up
+if [ ! -f /home/docker/wine/GuildWars/drive_c/Program\ Files\ \(x86\)/Guild\ Wars/Gw.exe ]
+then
+
+    # Download GuildWars
+    cd /home/docker/wine/GuildWars/drive_c/
+    wget -nc "http://cloudfront.guildwars2.com/client/GwSetup.exe"
+
+    # Launch the setup
+    wine /home/docker/wine/GuildWars/drive_c/GwSetup.exe
+fi
+
+# Run GuildWars
+WINEDEBUG=-all wine /home/docker/wine/GuildWars/drive_c/Program\ Files\ \(x86\)/Guild\ Wars/Gw.exe
+
+exit
